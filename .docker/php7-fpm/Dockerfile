@@ -22,9 +22,9 @@ RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/con
 RUN docker-php-ext-install pdo pdo_mysql bcmath zip
 
 # Install xdebug
-RUN pecl install xdebug-2.9.1 && docker-php-ext-enable xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
-# Add custom config
-COPY config/custom.ini $PHP_INI_DIR/conf.d/zzz_custom.ini
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.client_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 WORKDIR /var/www/html/demo

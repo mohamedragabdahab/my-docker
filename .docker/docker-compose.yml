@@ -10,9 +10,6 @@ services:
         HOST_IP: ${HOST_IP}
     volumes:
       - ${DEMO_APP_PATH}:/var/www/html/demo
-    environment:
-      XDEBUG_CONFIG: "remote_host=${HOST_IP} xdebug.remote_enable=1 remote_mode=req remote_port=9001 remote_connect_back=0"
-      PHP_IDE_CONFIG: "serverName=${SERVER_NAME}"
 
   nginx:
     container_name: demo_nginx
@@ -22,7 +19,7 @@ services:
         MAX_EXECUTION_TIME: ${MAX_EXECUTION_TIME}
         SERVER_NAME: ${SERVER_NAME}
     ports:
-      - "8080:80"
+      - "80:80"
     volumes_from:
       - php
     volumes:
